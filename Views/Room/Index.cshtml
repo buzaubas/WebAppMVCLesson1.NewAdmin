@@ -1,0 +1,28 @@
+﻿@using WebAppMVCLesson1.NewAdmin.Modals
+@model List<Room>
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Create Date</th>
+        <th>Create User</th>
+        <th>IsAvailable</th>
+        <th>RoomNumber</th>
+    </thead>
+    <tbody>
+        @foreach(Room item in Model)
+        {
+            <tr>
+                <td>@item.RoomId</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.CreateDate</td>
+                <td>@item.CreateUser</td>
+                <td>@item.IsAvailable</td>
+                <td>@item.RoomNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
