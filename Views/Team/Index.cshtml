@@ -1,0 +1,55 @@
+﻿@using WebAppMVCLesson1.NewAdmin.Modals;
+@model List<TeamWork>
+
+<div>
+    <h1>Teams</h1>
+    <table>
+        <tr>
+            <td>FirstName</td>
+            <td>MiddleName</td>
+            <td>LastName</td>
+            <td>AboutWork</td>
+            <td>CreateDate</td>
+            <td>Author</td>
+            <td>LinkedIn</td>
+            <td>Instagram</td>
+            <td>Facebook</td>
+            <td>Status</td>
+            <td>Photo</td>
+        </tr>
+    </table>
+    @foreach(TeamWork item in Model)
+    {
+        <tr>
+            <td>@item.FirstName</td>
+            <td>@item.MiddleName</td>
+            <td>@item.LastName</td>
+            <td>@item.AboutWork</td>
+            <td>@string.Format("{0:dd.MM.yy}", item.CreateDate)</td>
+            <td>@item.Author</td>
+            <td>@item.LinkedIn</td>
+            <td>@item.Instagram</td>
+            <td>@item.Facebook</td>
+            <td>@if(item.Status == "")
+                {
+                    <span>Active</span>
+                }
+                else
+                {
+                    <span>Inactive</span>
+                }
+            </td>
+            <td>@if (!string.IsNullOrEmpty(item.Photo))
+                {
+                    <img src="@item.FirstName" alt="@item.Photo"/>
+                }
+                else
+                {
+                    <img src=""/>
+                }
+            </td>
+        </tr>
+    }
+</div>
+<hr />
+<a asp-action="AddTeam" asp-controller="Team">Add Team</a>
