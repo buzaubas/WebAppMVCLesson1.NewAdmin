@@ -3,13 +3,15 @@
 
 <table>
     <thead>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Create Date</th>
-        <th>Create User</th>
-        <th>IsAvailable</th>
-        <th>RoomNumber</th>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>Create Date</td>
+            <td>Create User</td>
+            <td>IsAvailable</td>
+            <td>RoomNumber</td>
+        </tr>
     </thead>
     <tbody>
         @foreach(Room item in Model)
@@ -22,7 +24,13 @@
                 <td>@item.CreateUser</td>
                 <td>@item.IsAvailable</td>
                 <td>@item.RoomNumber</td>
+                <td>
+                    @*Room/EditRoom/Id/44214*@
+                    <a asp-action="EditRoom" asp-controller="Room" asp-route-Id="@item.RoomId">Edit Room</a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+<hr />
+<a asp-action="AddRoom" asp-controller="Room">Add Room</a>
