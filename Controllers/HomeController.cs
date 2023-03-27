@@ -15,6 +15,21 @@ namespace WebAppMVCLesson1.NewAdmin.Controllers
 
         public IActionResult Index()
         {
+            try
+            {
+                string useremail = "bexultanov@icloud.com";
+                DateTime dateTime = DateTime.Now;
+                _logger.LogInformation("A user with email: {0} logged in {1}", useremail, dateTime);
+                _logger.LogInformation("LogInformation");
+                _logger.LogError("LogError");
+
+                throw new Exception("test error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+
             return View();
         }
 

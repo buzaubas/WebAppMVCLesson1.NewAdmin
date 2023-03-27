@@ -1,7 +1,37 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
+using Serilog.Sinks.MSSqlServer;
 using WebAppMVCLesson1.NewAdmin.DataContext;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
+
+var columnOptions = new ColumnOptions
+{
+    AdditionalColumns = new Collection<SqlColumn>
+    {
+        new SqlColumn("UserName", System.Data.SqlDbType.VarChar),
+        new SqlColumn("IP", System.Data.SqlDbType.VarChar)
+    }
+};
+
+Log.Logger = new LoggerConfiguration()
+                    .WriteTo.Seq("http://localhost:5341/")
+                    .WriteTo.Debug(new RenderedCompactJsonFormatter())
+                    .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)
+                    .WriteTo.MSSqlServerbuilder.Configuration["ConnectionStrings:DefaultConnection"], sinkOptionsSection: new MSSqlServerSinkOptions { TableName = "Log"}, null, null, LogEventLevel.Information, null, columnOptions, null, null)
+                    .CreateLogger();
+
+//builder.Host.ConfigureLogging(logingBuilder => {
+//    logingBuilder.ClearProviders();
+//    /*logingBuilder.AddSeq()*/;
+//                    //.AddDebug().AddEventLog().AddConsole();
+//});
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
